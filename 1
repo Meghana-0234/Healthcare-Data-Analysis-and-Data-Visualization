@@ -1,0 +1,40 @@
+import numpy as np
+import matplotlib.pyplot as plot
+import pandas as pds
+import seaborn as sb
+np.random.seed(0)
+no_of_patients=500
+patients_data={
+    'patient_id': range(1,no_of_patients+1),
+    'patient_age': np.random.randint(18,100,no_of_patients),
+    'patient_gender': np.random.choice(['M', 'F'],no_of_patients),
+    'Disease': np.random.choice(['Blood Pleasure','Obesity','Cancer','Diabetes','Cancer'],no_of_patients),
+    'Treatment': np.random.choice(['Medication','Surgery','Therapy'],no_of_patients),
+    'Outcome':np.random.choice(['Improved','Bad','Stable'],no_of_patients)}
+df=pds.Dataframe(patients_data)
+plot.figure(figsize=(12,6))
+
+plot.subplot(2,2,1)
+sb.histplot(df['patient_age',bins=20,kde=True])
+plot.title('Age Graph')
+
+plot.subplot(2,2,2)
+sb.histplot(x='patient_gender',data=df)
+plot.title('Gender Graph')
+
+plot.subplot(2,2,3)
+sb.countplot(x='Disease',data=df)
+plot.title('Disease Graph')
+plot.xticks(rotation=45)
+
+plot.subplot(2,2,4)
+plot.title('Treatment Graph')
+
+plot.tight_layout()
+plot.show()
+
+plot.figure(figsize=(8,6))
+sb.countplot(x='Outcome',data=df,hue='Treatment')
+plot.title('Treatment outcomes')
+plot.legend(title='Treatment')
+plot.show()
